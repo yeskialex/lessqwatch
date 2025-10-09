@@ -3,6 +3,7 @@ internal import Combine
 
 struct ActiveHikeView: View {
     @State private var currentTime = Date()
+    @State private var selectedWaypoint = 0
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     private var timeFormatter: DateFormatter {
@@ -15,46 +16,70 @@ struct ActiveHikeView: View {
         ZStack {
             Color.black.ignoresSafeArea()
 
-            VStack(spacing: 0) {
+            VStack(spacing: 2) {
                 // Header
-                HStack {
+                HStack{
                     Text("Activity")
-                        .font(.custom("Poppins-SemiBold", size: 18))
+                        .font(.custom("Poppins-SemiBold", size: 15))
                         .foregroundColor(.white)
-
+                        .padding(.leading, 14)
+                        .padding(.top, 5)
                     Spacer()
-
-                    Text(timeFormatter.string(from: currentTime))
-                        .font(.custom("Poppins-SemiBold", size: 18))
-                        .foregroundColor(.white)
                 }
-                .padding(.horizontal)
-                .padding(.top, 8)
 
                 Spacer()
 
                 // Scrollable waypoint cards
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 12) {
-                        WaypointCard(
-                            name: "Neungwon\nTemple",
-                            distance: "500 M",
-                            isMain: true
-                        )
+                ScrollViewReader { proxy in
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 12) {
+                            Button(action: {
+                                selectedWaypoint = 0
+                                withAnimation {
+                                    proxy.scrollTo(0, anchor: .center)
+                                }
+                            }) {
+                                WaypointCard(
+                                    name: "Neungwon\nTemple",
+                                    distance: "500 M",
+                                    isMain: selectedWaypoint == 0
+                                )
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .id(0)
 
-                        WaypointCard(
-                            name: "Dobong\nTemple",
-                            distance: "300M",
-                            isMain: false
-                        )
+                            Button(action: {
+                                selectedWaypoint = 1
+                                withAnimation {
+                                    proxy.scrollTo(1, anchor: .center)
+                                }
+                            }) {
+                                WaypointCard(
+                                    name: "Dobong\nTemple",
+                                    distance: "300M",
+                                    isMain: selectedWaypoint == 1
+                                )
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .id(1)
 
-                        WaypointCard(
-                            name: "Dobong\nGarden",
-                            distance: "150M",
-                            isMain: false
-                        )
+                            Button(action: {
+                                selectedWaypoint = 2
+                                withAnimation {
+                                    proxy.scrollTo(2, anchor: .center)
+                                }
+                            }) {
+                                WaypointCard(
+                                    name: "Dobong\nGarden",
+                                    distance: "150M",
+                                    isMain: selectedWaypoint == 2
+                                )
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .id(2)
+                        }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
                 }
                 .frame(height: 140)
 
@@ -153,7 +178,7 @@ struct WaypointCard: View {
                 Spacer()
 
                 Text(name)
-                    .font(.custom("Poppins-SemiBold", size: isMain ? 18 : 13))
+                    .font(.custom("Poppins-SemiBold", size: 13))
                     .foregroundColor(.black)
                     .lineLimit(2)
             }

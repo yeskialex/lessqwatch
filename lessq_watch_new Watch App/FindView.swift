@@ -35,6 +35,7 @@ struct FindView: View {
                     .fill(Color(red: 0.8, green: 0.95, blue: 0.3))
                     .frame(width: 30, height: 30)
                     .padding(.bottom, 20)
+                    .padding(.leading, 50)
 
                 // Navigation arrow
                 ZStack {
@@ -74,7 +75,7 @@ struct FindView: View {
     }
 }
 
-// Custom arrow shape
+// Custom arrow shape with tail
 struct ArrowShape: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
@@ -82,15 +83,25 @@ struct ArrowShape: Shape {
         let width = rect.width
         let height = rect.height
 
-        // Left line of arrow
-        path.move(to: CGPoint(x: width * 0.3, y: height * 0.85))
-        path.addLine(to: CGPoint(x: width * 0.5, y: height * 0.15))
+        // Rectangular tail (bottom part)
+        let tailWidth: CGFloat = 2
+        let tailHeight = height * 0.9
+        path.addRect(CGRect(
+            x: (width - tailWidth) / 2,
+            y: height - tailHeight,
+            width: tailWidth,
+            height: tailHeight
+        ))
 
-        // Right line of arrow
-        path.move(to: CGPoint(x: width * 0.7, y: height * 0.85))
-        path.addLine(to: CGPoint(x: width * 0.5, y: height * 0.15))
+        // Left line of arrow (chevron)
+        path.move(to: CGPoint(x: width * 0.3, y: height * 0.5))
+        path.addLine(to: CGPoint(x: width * 0.5, y: 0))
 
-        return path.strokedPath(StrokeStyle(lineWidth: 12, lineCap: .round, lineJoin: .round))
+        // Right line of arrow (chevron)
+        path.move(to: CGPoint(x: width * 0.7, y: height * 0.5))
+        path.addLine(to: CGPoint(x: width * 0.5, y: 0))
+
+        return path.strokedPath(StrokeStyle(lineWidth: 8, lineCap: .round, lineJoin: .round))
     }
 }
 

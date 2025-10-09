@@ -319,7 +319,9 @@
 				DEVELOPMENT_TEAM = VF2H5YV5DV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "lessq-watch-new-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = lessq_watch_new;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -352,7 +354,9 @@
 				DEVELOPMENT_TEAM = VF2H5YV5DV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "lessq-watch-new-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = lessq_watch_new;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -38,7 +38,7 @@ struct ContentView: View {
                 navigateToMain = true
             }) {
                 Text("Welcome.")
-                    .font(.custom("Poppins-SemiBold", size: 30))
+                    .font(.custom("Poppins-SemiBold", size: 22))
                     .fontWeight(.bold)
                     .foregroundColor(.white)
             }
@@ -50,6 +50,7 @@ struct ContentView: View {
             }
             .navigationDestination(isPresented: $navigateToMain) {
                 MainTabView()
+                    .navigationBarBackButtonHidden(true)
             }
         }
     }
