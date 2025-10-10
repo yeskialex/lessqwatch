@@ -13,26 +13,27 @@ struct ActiveHikeView: View {
     }
 
     var body: some View {
-        ZStack {
-            Color.black.ignoresSafeArea()
+        GeometryReader { geometry in
+            ZStack {
+                Color.black.ignoresSafeArea()
 
-            VStack(spacing: 2) {
-                // Header
-                HStack{
-                    Text("Activity")
-                        .font(.custom("Poppins-SemiBold", size: 15))
-                        .foregroundColor(.white)
-                        .padding(.leading, 14)
-                        .padding(.top, 5)
+                VStack(spacing: geometry.size.height * 0.01) {
+                    // Header - aligned with system time
+                    HStack{
+                        Text("Activity")
+                            .font(.custom("Poppins-SemiBold", size: geometry.size.width * 0.08))
+                            .foregroundColor(.white)
+                        Spacer()
+                    }
+                    .padding(.horizontal)
+                    .padding(.top, -30)
+
                     Spacer()
-                }
 
-                Spacer()
-
-                // Scrollable waypoint cards
-                ScrollViewReader { proxy in
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 12) {
+                    // Scrollable waypoint cards
+                    ScrollViewReader { proxy in
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 12) {
                             Button(action: {
                                 selectedWaypoint = 0
                                 withAnimation {
@@ -42,7 +43,8 @@ struct ActiveHikeView: View {
                                 WaypointCard(
                                     name: "Neungwon\nTemple",
                                     distance: "500 M",
-                                    isMain: selectedWaypoint == 0
+                                    isMain: selectedWaypoint == 0,
+                                    screenWidth: geometry.size.width
                                 )
                             }
                             .buttonStyle(PlainButtonStyle())
@@ -57,7 +59,8 @@ struct ActiveHikeView: View {
                                 WaypointCard(
                                     name: "Dobong\nTemple",
                                     distance: "300M",
-                                    isMain: selectedWaypoint == 1
+                                    isMain: selectedWaypoint == 1,
+                                    screenWidth: geometry.size.width
                                 )
                             }
                             .buttonStyle(PlainButtonStyle())
@@ -72,7 +75,8 @@ struct ActiveHikeView: View {
                                 WaypointCard(
                                     name: "Dobong\nGarden",
                                     distance: "150M",
-                                    isMain: selectedWaypoint == 2
+                                    isMain: selectedWaypoint == 2,
+                                    screenWidth: geometry.size.width
                                 )
                             }
                             .buttonStyle(PlainButtonStyle())
@@ -81,9 +85,9 @@ struct ActiveHikeView: View {
                         .padding(.horizontal)
                     }
                 }
-                .frame(height: 140)
-
-                Spacer()
+                .frame(height: geometry.size.height * 0.7)
+                .padding(.bottom, 10)
+ 
 
                 // Control buttons
                 HStack(spacing: 20) {
@@ -94,11 +98,11 @@ struct ActiveHikeView: View {
                         ZStack {
                             Circle()
                                 .fill(Color(red: 0.8, green: 0.95, blue: 0.3))
-                                .frame(width: 50, height: 50)
+                                .frame(width: geometry.size.width * 0.25, height: geometry.size.width * 0.25)
 
                             RoundedRectangle(cornerRadius: 4)
                                 .fill(Color.black)
-                                .frame(width: 15, height: 15)
+                                .frame(width: geometry.size.width * 0.075, height: geometry.size.width * 0.075)
                         }
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -110,35 +114,23 @@ struct ActiveHikeView: View {
                         ZStack {
                             Circle()
                                 .fill(Color(red: 0.8, green: 0.95, blue: 0.3))
-                                .frame(width: 50, height: 50)
+                                .frame(width: geometry.size.width * 0.25, height: geometry.size.width * 0.25)
 
                             Image(systemName: "play.fill")
-                                .font(.system(size: 20))
+                                .font(.system(size: geometry.size.width * 0.1))
                                 .foregroundColor(.black)
                                 .offset(x: 2)
                         }
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
-                .padding(.bottom, 10)
 
-                // Page indicator
-//                HStack(spacing: 8) {
-//                    Circle()
-//                        .fill(Color.white)
-//                        .frame(width: 6, height: 6)
-//                    Circle()
-//                        .fill(Color.gray)
-//                        .frame(width: 6, height: 6)
-//                    Circle()
-//                        .fill(Color.gray)
-//                        .frame(width: 6, height: 6)
-//                }
-                .padding(.bottom, 10)
+                .padding(.bottom, 20)
+                }
             }
-        }
-        .onReceive(timer) { input in
-            currentTime = input
+            .onReceive(timer) { input in
+                currentTime = input
+            }
         }
     }
 }
@@ -147,23 +139,32 @@ struct WaypointCard: View {
     let name: String
     let distance: String
     let isMain: Bool
+    let screenWidth: CGFloat
+
+    private var cardWidth: CGFloat {
+        isMain ? screenWidth * 0.65 : screenWidth * 0.5
+    }
+
+    private var cardHeight: CGFloat {
+        isMain ? screenWidth * 0.65 : screenWidth * 0.575
+    }
 
     var body: some View {
         ZStack(alignment: .topLeading) {
             RoundedRectangle(cornerRadius: 20)
                 .fill(isMain ? Color.white : Color.gray.opacity(0.6))
-                .frame(width: isMain ? 130 : 100, height: isMain ? 130 : 115)
+                .frame(width: cardWidth, height: cardHeight)
 
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: screenWidth * 0.04) {
                 HStack {
                     if isMain {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
                                 .fill(Color.gray.opacity(0.3))
-                                .frame(width: 36, height: 36)
+                                .frame(width: screenWidth * 0.18, height: screenWidth * 0.18)
 
                             Image(systemName: "arrow.up.right")
-                                .font(.system(size: 16, weight: .bold))
+                                .font(.system(size: screenWidth * 0.08, weight: .bold))
                                 .foregroundColor(.black)
                         }
                     }
@@ -171,20 +172,20 @@ struct WaypointCard: View {
                     Spacer()
 
                     Text(distance)
-                        .font(.custom("Poppins-SemiBold", size: isMain ? 20 : 15))
+                        .font(.custom("Poppins-SemiBold", size: isMain ? screenWidth * 0.1 : screenWidth * 0.075))
                         .foregroundColor(.black)
                 }
 
                 Spacer()
 
                 Text(name)
-                    .font(.custom("Poppins-SemiBold", size: 13))
+                    .font(.custom("Poppins-SemiBold", size: screenWidth * 0.065))
                     .foregroundColor(.black)
                     .lineLimit(2)
             }
-            .padding(12)
+            .padding(screenWidth * 0.06)
         }
-        .frame(width: isMain ? 130 : 100, height: isMain ? 130 : 115)
+        .frame(width: cardWidth, height: cardHeight)
     }
 }
 

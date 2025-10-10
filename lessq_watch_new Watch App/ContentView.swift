@@ -19,34 +19,37 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack {
-            // Debug: Print available fonts (remove this after testing)
-            let _ = print("Available fonts: \(UIFont.familyNames)")
-            let _ = print("Poppins variants: \(UIFont.fontNames(forFamilyName: "Poppins"))")
-            // ZStack is used to layer views on top of each other (like layers in Photoshop)
-            ZStack {
-            // MARK: - Background Image
-            // This is the bottom layer.
-            Image("watch") // Assumes your image is named "watch" in the assets
-                .resizable() // Allows the image to be resized
-                .scaledToFill() // Fills the screen, preserving aspect ratio
-                .ignoresSafeArea() // Extends the image to the screen edges
-                .overlay(Color.black.opacity(0.3)) // Adds a dark overlay to improve text readability
+            GeometryReader { geometry in
+                // Debug: Print available fonts (remove this after testing)
+                let _ = print("Available fonts: \(UIFont.familyNames)")
+                let _ = print("Poppins variants: \(UIFont.fontNames(forFamilyName: "Poppins"))")
+                // ZStack is used to layer views on top of each other (like layers in Photoshop)
+                ZStack {
+                // MARK: - Background Image
+                // This is the bottom layer.
+                Image("watch") // Assumes your image is named "watch" in the assets
+                    .resizable() // Allows the image to be resized
+                    .scaledToFill() // Fills the screen, preserving aspect ratio
+                    .ignoresSafeArea() // Extends the image to the screen edges
+                    .overlay(Color.black.opacity(0.3)) // Adds a dark overlay to improve text readability
 
-            // MARK: - Main Content
-            // The central "Welcome" text - now tappable
-            Button(action: {
-                navigateToMain = true
-            }) {
-                Text("Welcome.")
-                    .font(.custom("Poppins-SemiBold", size: 22))
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-            }
-            .buttonStyle(PlainButtonStyle())
-            }
-            .onReceive(timer) { input in
-                // 3. This code runs every time the timer fires (every second)
-                currentTime = input
+                // MARK: - Main Content
+                // The central "Welcome" text - now tappable
+                Button(action: {
+                    navigateToMain = true
+                }) {
+                    Text("Welcome.")
+                        .font(.custom("Poppins-SemiBold", size: geometry.size.width * 0.11))
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding(.top, -55)
+                }
+                .buttonStyle(PlainButtonStyle())
+                }
+                .onReceive(timer) { input in
+                    // 3. This code runs every time the timer fires (every second)
+                    currentTime = input
+                }
             }
             .navigationDestination(isPresented: $navigateToMain) {
                 MainTabView()

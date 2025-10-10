@@ -13,46 +13,50 @@ struct FindView: View {
     }
 
     var body: some View {
-        ZStack {
-            Color.black.ignoresSafeArea()
+        GeometryReader { geometry in
+            ZStack {
+                Color.black.ignoresSafeArea()
 
-            VStack(spacing: 5) {
-                // Header
-                HStack {
-                    Text("Find")
-                        .font(.custom("Poppins-SemiBold", size: 18))
+                VStack(spacing: geometry.size.height * 0.025) {
+                    // Header - aligned with system time
+                    HStack {
+                        Text("Find")
+                            .font(.custom("Poppins-SemiBold", size: geometry.size.width * 0.08))
+                            .foregroundColor(.white)
+
+                        Spacer()
+                    }
+                    .padding(.horizontal)
+                    .padding(.top, -30)
+
+                    Spacer()
+
+                    // Yellow indicator dot
+                    Circle()
+                        .fill(Color(red: 0.8, green: 0.95, blue: 0.3))
+                        .frame(width: geometry.size.width * 0.15, height: geometry.size.width * 0.15)
+                        .padding(.bottom, geometry.size.height * 0.1)
+                        .padding(.leading, geometry.size.width * 0.25)
+
+                    // Navigation arrow
+                    ZStack {
+                        // Arrow shape using custom path
+                        ArrowShape()
+                            .fill(Color.white)
+                            .frame(width: geometry.size.width * 0.75, height: geometry.size.height * 0.3)
+                            .rotationEffect(.degrees(arrowRotation))
+                    }
+                    .padding(.vertical, geometry.size.height * 0.025)
+                    
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    // Distance display
+                    Text("08m")
+                        .font(.custom("Poppins-SemiBold", size: geometry.size.width * 0.075))
                         .foregroundColor(.white)
 
                     Spacer()
-                }
-                .padding(.horizontal)
-                .padding(.top, 8)
-
-                Spacer()
-
-                // Yellow indicator dot
-                Circle()
-                    .fill(Color(red: 0.8, green: 0.95, blue: 0.3))
-                    .frame(width: 30, height: 30)
-                    .padding(.bottom, 20)
-                    .padding(.leading, 50)
-
-                // Navigation arrow
-                ZStack {
-                    // Arrow shape using custom path
-                    ArrowShape()
-                        .fill(Color.white)
-                        .frame(width: 150, height: 60)
-                        .rotationEffect(.degrees(arrowRotation))
-                }
-                .padding(.vertical, 5)
-
-                // Distance display
-                Text("08m")
-                    .font(.custom("Poppins-SemiBold", size: 15))
-                    .foregroundColor(.white)
-
-                Spacer()
 
                 // Page indicator
 //                HStack(spacing: 8) {
@@ -67,10 +71,11 @@ struct FindView: View {
 //                        .frame(width: 6, height: 6)
 //                }
                 .padding(.bottom, 10)
+                }
             }
-        }
-        .onReceive(timer) { input in
-            currentTime = input
+            .onReceive(timer) { input in
+                currentTime = input
+            }
         }
     }
 }
