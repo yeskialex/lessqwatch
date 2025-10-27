@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5551D0D42EAFB17900CF813C /* libAXSpeechManager.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5551D0D32EAFB16900CF813C /* libAXSpeechManager.tbd */; };
+		5551D0D62EAFB19D00CF813C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5551D0D52EAFB19D00CF813C /* AVFoundation.framework */; };
+		5551D0D82EAFB1A900CF813C /* AVFAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5551D0D72EAFB1A800CF813C /* AVFAudio.framework */; };
+		5551D0DA2EAFB1AD00CF813C /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5551D0D92EAFB1AD00CF813C /* AVKit.framework */; };
 		55A76CE92E97A16F009FCE14 /* lessq_watch_new Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 55A76CE82E97A16F009FCE14 /* lessq_watch_new Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -35,6 +39,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5551D0D32EAFB16900CF813C /* libAXSpeechManager.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libAXSpeechManager.tbd; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS26.0.sdk/usr/lib/libAXSpeechManager.tbd; sourceTree = DEVELOPER_DIR; };
+		5551D0D52EAFB19D00CF813C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS26.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		5551D0D72EAFB1A800CF813C /* AVFAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFAudio.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS26.0.sdk/System/Library/Frameworks/AVFAudio.framework; sourceTree = DEVELOPER_DIR; };
+		5551D0D92EAFB1AD00CF813C /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS26.0.sdk/System/Library/Frameworks/AVKit.framework; sourceTree = DEVELOPER_DIR; };
 		55A76CE22E97A16F009FCE14 /* lessq_watch_new.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lessq_watch_new.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55A76CE82E97A16F009FCE14 /* lessq_watch_new Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "lessq_watch_new Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -52,16 +60,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5551D0D82EAFB1A900CF813C /* AVFAudio.framework in Frameworks */,
+				5551D0D62EAFB19D00CF813C /* AVFoundation.framework in Frameworks */,
+				5551D0DA2EAFB1AD00CF813C /* AVKit.framework in Frameworks */,
+				5551D0D42EAFB17900CF813C /* libAXSpeechManager.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5551D0D22EAFB15F00CF813C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5551D0D92EAFB1AD00CF813C /* AVKit.framework */,
+				5551D0D72EAFB1A800CF813C /* AVFAudio.framework */,
+				5551D0D52EAFB19D00CF813C /* AVFoundation.framework */,
+				5551D0D32EAFB16900CF813C /* libAXSpeechManager.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		55A76CDB2E97A16F009FCE14 = {
 			isa = PBXGroup;
 			children = (
 				55A76CEC2E97A16F009FCE14 /* lessq_watch_new Watch App */,
+				5551D0D22EAFB15F00CF813C /* Frameworks */,
 				55A76CE32E97A16F009FCE14 /* Products */,
 			);
 			sourceTree = "<group>";

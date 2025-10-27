@@ -25,10 +25,6 @@ struct CallingView: View {
                             .foregroundColor(.white)
 
                         Spacer()
-
-                        Text(timeFormatter.string(from: currentTime))
-                            .font(.custom("Poppins-SemiBold", size: geometry.size.width * 0.08))
-                            .foregroundColor(.white)
                     }
                     .padding(.horizontal)
                     .padding(.top, -30)

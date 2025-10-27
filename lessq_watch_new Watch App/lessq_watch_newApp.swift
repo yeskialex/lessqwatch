@@ -85,7 +85,7 @@ struct lessq_watch_new_Watch_AppApp: App {
         content.sound = UNNotificationSound.default
         content.categoryIdentifier = "OFF_TRAIL_WARNING"
 
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: true)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: true)
         let request = UNNotificationRequest(identifier: "off-trail-warning", content: content, trigger: trigger)
 
         UNUserNotificationCenter.current().add(request) { error in
@@ -104,7 +104,7 @@ struct lessq_watch_new_Watch_AppApp: App {
         content.sound = UNNotificationSound.default
         content.categoryIdentifier = "HEAVY_RAIN_WARNING"
 
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 20, repeats: true)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 80, repeats: true)
         let request = UNNotificationRequest(identifier: "heavy-rain-warning", content: content, trigger: trigger)
 
         UNUserNotificationCenter.current().add(request) { error in
@@ -115,4 +115,5 @@ struct lessq_watch_new_Watch_AppApp: App {
             }
         }
     }
+
 }

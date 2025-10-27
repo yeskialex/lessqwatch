@@ -8,5 +8,9 @@
 		<string>Poppins-Regular.ttf</string>
 		<string>Poppins-Bold.ttf</string>
 	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app needs microphone access to detect emergency voice commands like "Call 119"</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>This app uses speech recognition to detect emergency voice commands for safety purposes</string>
 </dict>
 </plist>
