@@ -6,6 +6,7 @@ struct ContentView: View {
     // The view will automatically update when this changes.
     @State private var currentTime = Date()
     @State private var navigateToMain = false
+    @State private var navigateToEmergencyCall = false
 
     // 2. A timer that fires every second to update the time.
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -50,9 +51,16 @@ struct ContentView: View {
                     // 3. This code runs every time the timer fires (every second)
                     currentTime = input
                 }
+                .onReceive(NotificationCenter.default.publisher(for: .navigateToEmergencyCall)) { _ in
+                    navigateToEmergencyCall = true
+                }
             }
             .navigationDestination(isPresented: $navigateToMain) {
                 MainTabView()
+                    .navigationBarBackButtonHidden(true)
+            }
+            .navigationDestination(isPresented: $navigateToEmergencyCall) {
+                CallingView()
                     .navigationBarBackButtonHidden(true)
             }
         }
