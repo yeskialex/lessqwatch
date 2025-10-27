@@ -32,7 +32,9 @@ struct EmergencyView: View {
                         
                         // SOS Button with concentric circles
                         Button(action: {
-                            navigateToCalling = true
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                navigateToCalling = true
+                            }
                         }) {
                             ZStack {
                                 // Concentric circles
@@ -84,6 +86,10 @@ struct EmergencyView: View {
                     .navigationDestination(isPresented: $navigateToCalling) {
                         CallingView()
                             .navigationBarBackButtonHidden(true)
+                            .transition(.asymmetric(
+                                insertion: .move(edge: .leading).combined(with: .opacity),
+                                removal: .move(edge: .trailing).combined(with: .opacity)
+                            ))
                     }
                 }
                 .onReceive(timer) { input in

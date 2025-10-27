@@ -2,6 +2,11 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var selectedTab = 0
+    var initialTab: Int = 0
+
+    init(initialTab: Int = 0) {
+        self.initialTab = initialTab
+    }
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -12,6 +17,9 @@ struct MainTabView: View {
                 .tag(1)
         }
         .tabViewStyle(.page)
+        .onAppear {
+            selectedTab = initialTab
+        }
     }
 }
 
