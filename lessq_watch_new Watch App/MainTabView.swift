@@ -10,9 +10,6 @@ struct MainTabView: View {
 
             EmergencyView()
                 .tag(1)
-
-            FindView()
-                .tag(2)
         }
         .tabViewStyle(.page)
     }
